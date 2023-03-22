@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -24,6 +25,7 @@ func (app *Config) Auth(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err})
 		return
 	}
+	defer c.Request.Body.Close()
 	req.Header = c.Request.Header
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -31,7 +33,9 @@ func (app *Config) Auth(c *gin.Context) {
 		return
 	}
 	defer resp.Body.Close()
-	c.JSON(resp.StatusCode, resp.Body)
+	msg, _ := io.ReadAll(resp.Body)
+
+	c.JSON(resp.StatusCode, gin.H{"message": msg})
 }
 
 func (app *Config) Login(c *gin.Context) {
@@ -40,6 +44,7 @@ func (app *Config) Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err})
 		return
 	}
+	defer c.Request.Body.Close()
 	req.Header = c.Request.Header
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -47,7 +52,9 @@ func (app *Config) Login(c *gin.Context) {
 		return
 	}
 	defer resp.Body.Close()
-	c.JSON(resp.StatusCode, resp.Body)
+	msg, _ := io.ReadAll(resp.Body)
+
+	c.JSON(resp.StatusCode, gin.H{"message": msg})
 }
 
 func (app *Config) Register(c *gin.Context) {
@@ -56,6 +63,7 @@ func (app *Config) Register(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err})
 		return
 	}
+	defer c.Request.Body.Close()
 	req.Header = c.Request.Header
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -63,5 +71,7 @@ func (app *Config) Register(c *gin.Context) {
 		return
 	}
 	defer resp.Body.Close()
-	c.JSON(resp.StatusCode, resp.Body)
+	msg, _ := io.ReadAll(resp.Body)
+
+	c.JSON(resp.StatusCode, gin.H{"message": msg})
 }
