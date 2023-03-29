@@ -15,10 +15,6 @@ const (
 	ValidateEndpoint   = "/api/admin/validate"
 )
 
-func (app *Config) Handle(c *gin.Context) {
-
-}
-
 func (app *Config) Auth(c *gin.Context) {
 	req, err := http.NewRequest(http.MethodPost, fmt.Sprintf("http://%s%s", AuthServiceAddress, ValidateEndpoint), c.Request.Body)
 	if err != nil {
