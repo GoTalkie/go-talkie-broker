@@ -20,7 +20,6 @@ func (app *Config) Chat(c *gin.Context) {
 
 	clients[conn] = true
 	log.Println("Client connected")
-
 	for {
 		_, msg, err := conn.ReadMessage()
 		if err != nil {
