@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/RaMin0/gin-health-check v0.0.0-20180807004848-a677317b3f01
 	github.com/gin-gonic/gin v1.8.2
+	github.com/gorilla/websocket v1.5.0
 	github.com/pkg/errors v0.9.1
 	go.uber.org/zap v1.24.0
 )
